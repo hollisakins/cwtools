@@ -1,0 +1,9 @@
+README.md
+setup.py
+cwtools/__init__.py
+cwtools/cutout.py
+cwtools.egg-info/PKG-INFO
+cwtools.egg-info/SOURCES.txt
+cwtools.egg-info/dependency_links.txt
+cwtools.egg-info/requires.txt
+cwtools.egg-info/top_level.txt

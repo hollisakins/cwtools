@@ -1,0 +1,7 @@
+astropy
+numpy
+matplotlib
+requests
+aiohttp
+rich
+pwinput
