@@ -1,14 +1,13 @@
+'''This module handles cutout generation from mosaics hosted on CANDIDE.'''
+
 from astropy.io import fits
 from astropy.coordinates import SkyCoord
 from astropy import units as u
 from astropy.nddata import Cutout2D
 from astropy.wcs import WCS
-import time, os
-import aiohttp
-import pwinput
+import aiohttp, pwinput
 import numpy as np
-import tqdm
-import warnings
+import tqdm, warnings, time, os
 from astropy.wcs import FITSFixedWarning
 warnings.simplefilter('ignore', FITSFixedWarning)
 from . import utils
