@@ -7,5 +7,5 @@ setup(
     description='Tools for COSMOS-Web',
     author='Hollis Akins',
     license='MIT',
-    install_requires=['astropy','numpy','matplotlib','requests','aiohttp','rich','pwinput'],
+    install_requires=['astropy','numpy','matplotlib','requests','aiohttp','rich','pwinput','tqdm','requests'],
 )

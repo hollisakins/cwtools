@@ -9,6 +9,22 @@ import numpy as np
 install_dir = os.path.dirname(os.path.realpath(__file__))
 '''Stores the install directory for easy reference'''
 
+# some logic to ensure the code is up-to-date
+import requests
+url = 'https://raw.githubusercontent.com/hollisakins/cwtools/main/changelog.md'
+r = requests.get(url)
+line1 = ' '.join(r.text.split('\n')[2].split(' ')[1:])
+try:
+    with open(f'{install_dir}/../changelog.md') as f:
+        line2 = ' '.join(f.readlines()[2].split(' ')[1:])[:-1]
+        if line2 != line1:
+            from datetime import datetime
+            delta = datetime.strptime(line2, '%b %d, %Y') - datetime.strptime(line1, '%b %d, %Y')
+            print(f'''Note: cwtools version is out of date, {delta.days} days behind current version. Run `git pull` to update your installation. ''')
+except:
+    # didn't install using github... 
+    pass
+
 def get_tile(coords):
     """
     Get the tile for a given coordinate. Finds the closest match 

@@ -13,7 +13,6 @@ warnings.simplefilter('ignore', FITSFixedWarning)
 from . import utils
 
 def get_url(band, tile, ext):
-    base_nircam = 'https://exchg.calet.org/cosmosweb/COSMOS-Web_Jan24/NIRCam/v0.8/sci_mosaics/'
     base = 'https://exchg.calet.org/cosmosweb/.misc/'
     if band in ['f115w','f150w','f277w','f444w']:
         assert ext in ['sci']
@@ -91,12 +90,12 @@ def cutout(band, positions, size,
         pswd = pwinput.pwinput('Password: ') 
     fsspec_kwargs = dict(client_kwargs={'auth': aiohttp.BasicAuth(user, pswd)})
 
-    
-    if type(size)==u.quantity.Quantity:
-        print('Converting size to arcsec')
-        size = size.to(u.arcsec)
+    if hasattr(size, 'unit'):
+        if size.unit != u.arcsec:
+            if verbose: print('Converting cutout size to arcsec')
+            size = size.to(u.arcsec)
     else:
-        print('Assuming size in arcsec')
+        if verbose: print('Assuming cutout size in arcsec')
         size = size * u.arcsec
 
     if pixscale != 'native': # if you're going to reproject afterwards, pad the cutouts a bit 
@@ -125,6 +124,7 @@ def cutout(band, positions, size,
 
     ### If requested, reproject all cutouts onto the same pixel scale
     if pixscale != 'native':
+        if verbose: print(f'Reprojecting cutouts to requested pixel scale of {pixscale} arcsec/pix')
         from reproject import reproject_interp
         for i in range(len(positions)):
             pos, cut = positions[i], cutouts[i]
@@ -150,6 +150,7 @@ def cutout(band, positions, size,
 
     ### If requested, write cutouts to file(s) 
     if outdir:
+        if verbose: print(f'Writing cutouts to {outdir}')
         if not os.path.exists(outdir):
             os.makedirs(outdir, exist_ok=True)
         if names:
