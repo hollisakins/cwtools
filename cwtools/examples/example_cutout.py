@@ -14,7 +14,7 @@ size = 10*u.arcsec
 # generate cutouts in f277w, saving them to the cutouts directory 
 cuts = cutout('f277w', positions, size, 
               outdir='./cutouts/',
-              names=['ex_A','ex_B','ex_C'])
+              names=['ex_A','ex_B','ex_C'], verbose=True)
 
 import matplotlib.pyplot as plt
 from astropy.visualization import simple_norm
