@@ -1,1 +1,2 @@
 *.egg-info
+cwtools/__pycache__/
